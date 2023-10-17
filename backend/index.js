@@ -29,9 +29,8 @@ async function run() {
 
     // post a data
     app.post("/list", async (req, res) => {
-      const name = req.body.name;
-      const email = req.body.email;
-      const data = { name, email };
+      const item = req.body.item;
+      const data = { item };
       const result = await list.insertOne(data);
 
       res.json(result);
@@ -54,15 +53,13 @@ async function run() {
 
     // Update data
     app.put("/list/:id", async (req, res) => {
-      const name = req.body.name;
-      const email = req.body.email;
+      const item = req.body.item;
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const options = { upsert: true };
       const updateList = {
         $set: {
-          name: name,
-          email: email,
+          name: item,
         },
       };
 
